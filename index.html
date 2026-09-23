@@ -8,6 +8,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background-color: #f8f0f0; }
 
+        .top-bar {
+            background-color: #7a0000;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+        }
+
         header {
             background: linear-gradient(135deg, #990000 0%, #cc0000 100%);
             color: white;
@@ -18,6 +26,33 @@
         h1 { font-size: 26px; }
         .campus-tag { color: #ffcc00; font-size: 18px; margin: 5px 0; }
         .course-line { margin-top: 8px; font-style: italic; color: #ffdddd; }
+
+        .search-container {
+            margin-top: 12px;
+        }
+        #search-input {
+            padding: 8px 12px;
+            width: 280px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        #search-btn {
+            padding: 8px 16px;
+            background-color: #ffcc00;
+            color: #7a0000;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .search-result {
+            margin-top: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
 
         .nav-bar {
             background-color: #b30000;
@@ -32,7 +67,7 @@
             background: transparent;
             color: white;
             border: none;
-            padding: 14px 22px;
+            padding: 14px 18px;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s;
@@ -62,9 +97,116 @@
             to { opacity: 1; transform: translateY(0); }
         }
         h2 { color: #990000; margin-bottom: 20px; border-bottom: 2px solid #ffcc00; padding-bottom: 8px; }
+        h3 { color: #b30000; margin: 18px 0 10px; }
         ul { margin-left: 25px; line-height: 1.8; }
         p { line-height: 1.7; margin-bottom: 12px; }
         .highlight { background-color: #fff4cc; padding: 12px; border-radius: 6px; border-left: 4px solid #ffcc00; margin: 15px 0; }
+
+        .announcement-box {
+            background-color: #fff9e6;
+            border: 2px solid #ffcc00;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .announcement {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ffcc00;
+        }
+        .announcement:last-child { border-bottom: none; }
+        .announce-date { font-weight: bold; color: #990000; }
+
+        /* 📸 Photo Upload Section */
+        .upload-box {
+            border: 2px dashed #990000;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+            background-color: #fff4f4;
+        }
+        #photo-input {
+            margin: 15px 0;
+        }
+        #preview-area {
+            margin-top: 20px;
+            display: none;
+        }
+        #preview-img {
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .save-note {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .gallery-item {
+            background-color: #f8f0f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            background-color: #ffcc00;
+        }
+        .gallery-img {
+            width: 100%;
+            height: 140px;
+            background-color: #d4d4d4;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #990000;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        #submit-btn {
+            background-color: #990000;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #submit-btn:hover {
+            background-color: #cc0000;
+        }
+        .success-msg {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
         footer {
             background-color: #990000;
@@ -73,23 +215,45 @@
             padding: 15px;
             margin-top: 30px;
         }
+
+        @media (max-width: 600px) {
+            .nav-btn { padding: 12px 14px; font-size: 15px; }
+            h1 { font-size: 20px; }
+            .content-container { padding: 0 12px; }
+            .page { padding: 20px; }
+            #search-input { width: 200px; }
+        }
     </style>
 </head>
 <body>
+
+<div class="top-bar">
+    <span id="datetime"></span>
+</div>
 
 <header>
     <h1>Bulacan State University</h1>
     <p class="campus-tag">MENESES CAMPUS</p>
     <p>Excellence • Service • Truth</p>
     <p class="course-line">Bachelor of Science in Computer Engineering (BSCpE)</p>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search this website...">
+        <button id="search-btn">Go</button>
+        <div id="search-result" class="search-result"></div>
+    </div>
 </header>
 
 <div class="nav-bar">
     <button class="nav-btn active" data-page="home">Home</button>
+    <button class="nav-btn" data-page="announcements">Announcements</button>
     <button class="nav-btn" data-page="about">About</button>
     <button class="nav-btn" data-page="bscpe">BSCpE Course</button>
-    <button class="nav-btn" data-page="programs">All Programs</button>
+    <button class="nav-btn" data-page="programs">Programs</button>
+    <button class="nav-btn" data-page="gallery">Gallery</button>
+    <button class="nav-btn" data-page="upload">📸 Upload Photo</button>
     <button class="nav-btn" data-page="contact">Contact</button>
+    <button class="nav-btn" data-page="feedback">Feedback</button>
 </div>
 
 <div class="content-container">
@@ -97,7 +261,26 @@
         <h2>Welcome to BulSU Meneses Campus</h2>
         <p>This is the official website system of our campus. I am a student taking <strong>Bachelor of Science in Computer Engineering (BSCpE)</strong> — a course that builds skills in both hardware and software technology.</p>
         <p>Our campus provides quality education and training to help every student grow into a skilled, confident, and globally competitive professional.</p>
-        <p>Use the menu above to explore our campus, our courses, and how to reach us.</p>
+        <p>Use the menu above to explore our campus, announcements, gallery, and how to reach us.</p>
+    </div>
+
+    <div class="page" id="announcements">
+        <h2>📢 Announcements & News</h2>
+        <div class="announcement-box">
+            <div class="announcement">
+                <span class="announce-date">Sep 24, 2026</span>
+                <p>Welcome to our newly launched BulSU Meneses Campus website! Explore our pages to learn more about our courses and community.</p>
+            </div>
+            <div class="announcement">
+                <span class="announce-date">Sep 20, 2026</span>
+                <p>Enrollment for next semester is ongoing. Visit the campus registrar for schedule and requirements.</p>
+            </div>
+            <div class="announcement">
+                <span class="announce-date">Sep 15, 2026</span>
+                <p>BSCpE students: Project submission guidelines are now posted. Check with your instructor for details.</p>
+            </div>
+        </div>
+        <p><em>To add new announcements, edit this section in the code with your date and message.</em></p>
     </div>
 
     <div class="page" id="about">
@@ -105,6 +288,8 @@
         <p>Bulacan State University Meneses Campus is named after the late Mayor Anacleto Meneses, who helped make education accessible to everyone in this community.</p>
         <p>We offer a friendly and modern learning environment with dedicated teachers and complete facilities. Our goal is to produce graduates who are skilled, honest, and ready to serve the country.</p>
         <p>As a BSCpE student, I am proud to study here and learn the skills needed for the future of technology.</p>
+        <h3>Our Mission</h3>
+        <p>To provide accessible, high-quality education that empowers students to contribute meaningfully to society and the nation's development.</p>
     </div>
 
     <div class="page" id="bscpe">
@@ -138,6 +323,55 @@
         </ul>
     </div>
 
+    <div class="page" id="gallery">
+        <h2>📸 Campus Gallery</h2>
+        <p>Go to the <strong>"Upload Photo"</strong> page to add and preview your own photos!</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="alert('Photo: BulSU Meneses Campus Building')">
+                <div class="gallery-img">🏫</div>
+                <p>Campus Building</p>
+            </div>
+            <div class="gallery-item" onclick="alert('Photo: BSCpE Computer Lab')">
+                <div class="gallery-img">💻</div>
+                <p>Computer Laboratory</p>
+            </div>
+            <div class="gallery-item" onclick="alert('Photo: Student Activities')">
+                <div class="gallery-img">🎓</div>
+                <p>Student Activities</p>
+            </div>
+            <div class="gallery-item" onclick="alert('Photo: Campus Grounds')">
+                <div class="gallery-img">🌳</div>
+                <p>Campus Grounds</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📸 NEW: Photo Upload Page -->
+    <div class="page" id="upload">
+        <h2>📸 Upload Your Photo</h2>
+        <p>Select a photo from your device to preview it. You can also save it and send it to us to feature on the website!</p>
+        
+        <div class="upload-box">
+            <h3>Choose Your Photo</h3>
+            <input type="file" id="photo-input" accept="image/*">
+            <p style="font-size: 14px; color: #666;">Supports: JPG, PNG, GIF — from your phone or computer</p>
+            
+            <div id="preview-area">
+                <h4>✅ Preview:</h4>
+                <img id="preview-img" alt="Preview will appear here">
+                <p class="save-note">💡 Right-click the photo → "Save image as..." → send to: marquezrolly33@gmail.com to be featured!</p>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <p><strong>📌 How it works:</strong></p>
+            <p>1. Click "Choose File" and pick your photo</p>
+            <p>2. It shows a preview right away — only <strong>you</strong> see it on your device</p>
+            <p>3. To make it appear for <strong>everyone</strong> on the website → save it and email it to me</p>
+            <p>4. I will add it to the Gallery page and update the website!</p>
+        </div>
+    </div>
+
     <div class="page" id="contact">
         <h2>Contact Information</h2>
         <p><strong>📍 Address:</strong> TJS Matungao, Bulakan, Bulacan – 3017, Philippines</p>
@@ -147,6 +381,27 @@
         <p><strong>📌 My Course:</strong> Bachelor of Science in Computer Engineering (BSCpE)</p>
         <p><strong>🕐 Office Hours:</strong> Monday – Saturday, 7:00 AM – 5:00 PM</p>
     </div>
+
+    <div class="page" id="feedback">
+        <h2>📝 Send Us a Message</h2>
+        <p>We would love to hear from you! Fill out the form below:</p>
+        <form id="feedback-form">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" rows="5" placeholder="Write your message, feedback, or inquiry here..." required></textarea>
+            </div>
+            <button type="submit" id="submit-btn">Send Message</button>
+            <div class="success-msg" id="success-msg">✅ Message sent successfully! Thank you for your feedback.</div>
+        </form>
+    </div>
 </div>
 
 <footer>
@@ -154,6 +409,24 @@
 </footer>
 
 <script>
+// ⏰ Live Time
+function updateDateTime() {
+    const now = new Date();
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+    document.getElementById('datetime').textContent = '📅 ' + now.toLocaleDateString('en-US', options);
+}
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+// Navigation
 const navButtons = document.querySelectorAll('.nav-btn');
 const pages = document.querySelectorAll('.page');
 
@@ -164,7 +437,77 @@ navButtons.forEach(button => {
         const targetPage = button.getAttribute('data-page');
         document.getElementById(targetPage).classList.add('active');
         button.classList.add('active');
+        window.scrollTo(0, 0);
     });
+});
+
+// 🔍 Search
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.getElementById('search-btn');
+const searchResult = document.getElementById('search-result');
+
+searchBtn.addEventListener('click', performSearch);
+searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') performSearch();
+});
+
+function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    if (!query) { searchResult.style.display = 'none'; return; }
+    const pageData = {
+        home: 'Welcome, BulSU Meneses Campus, BSCpE, information website',
+        announcements: 'News, updates, enrollment, submission deadline',
+        about: 'Mayor Anacleto Meneses, mission, history, education',
+        bscpe: 'Computer Engineering, hardware, software, programming, circuits, networks, career',
+        programs: 'BEED, BSED, BSIT, BSBA, BSHM, BPED, BIT, courses',
+        gallery: 'photos, campus, lab, activities, building',
+        upload: 'upload, photo, image, preview, send',
+        contact: 'address, TJS Matungao, Bulakan, Bulacan, 3017, phone, email',
+        feedback: 'message, inquiry, contact, feedback'
+    };
+    let found = [];
+    for (const [page, keywords] of Object.entries(pageData)) {
+        if (keywords.includes(query)) found.push(page);
+    }
+    if (found.length > 0) {
+        searchResult.innerHTML = '<strong>Found in:</strong> ' + found.map(p => 
+            `<a href="#" onclick="document.querySelector('[data-page=\'${p}\']').click(); return false;">${p.charAt(0).toUpperCase() + p.slice(1)}</a>`
+        ).join(' | ');
+        searchResult.style.display = 'block';
+    } else {
+        searchResult.innerHTML = 'No matches found. Try different words.';
+        searchResult.style.display = 'block';
+    }
+}
+
+// 📸 Photo Upload Preview
+const photoInput = document.getElementById('photo-input');
+const previewArea = document.getElementById('preview-area');
+const previewImg = document.getElementById('preview-img');
+
+photoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            previewImg.src = event.target.result;
+            previewArea.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewArea.style.display = 'none';
+    }
+});
+
+// 📝 Feedback Form
+const feedbackForm = document.getElementById('feedback-form');
+const successMsg = document.getElementById('success-msg');
+
+feedbackForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    successMsg.style.display = 'block';
+    feedbackForm.reset();
+    setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
 });
 </script>
 
